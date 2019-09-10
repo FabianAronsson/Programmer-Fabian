@@ -13,6 +13,20 @@ public class basics {
 				
 				String alder = input.nextLine();
 				
+				System.out.println("Vad är din adress?");
 				
+				String adress = input.nextLine();
+						
+				System.out.println("Vad är ditt postnummer?");
+				
+				String pnum = input.nextLine();
+						
+				System.out.println("I vilken stad bor du i?");
+				
+				String stad = input.nextLine();
+				
+				System.out.println("Vad är ditt telefonnummer?");
+				
+				String tnum = input.nextLine();
 			}
 }
