@@ -45,7 +45,7 @@ public class basics {
 				
 				System.out.println();
 				
-				System.out.println("Information:");
+				System.out.print("Information:\n\n");
 				
 				System.out.printf("Namn:\t %s%n", namn);
 				
