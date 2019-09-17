@@ -21,9 +21,10 @@ public class v38 {
 			 		int[] siffror = {s1, s2, s3, s4, s5, s6, s7, s8, s9, s10};
 			 		Arrays.sort(siffror);
 			 		
-			 		/*System.out.println(siffror[0]);
-			 		System.out.println(siffror[siffror.length-1]); Fattar inte detta, vad betyder 0 i detta sammanhanget?
-
+			 		System.out.println(siffror[0]);
+			 		System.out.println(siffror[siffror.length-1]); 
+			 		
+			 		System.out.println(("%.2f" s1 + s2 + s3 + s4 + s5 + s6 + s7 + s8 + s9 + s10)/10);
 			 		/*System.out.println(Arrays.toString(siffror));*/
 			 		
 			 		
