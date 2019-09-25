@@ -1,4 +1,6 @@
-import java.util.Scanner; /* All text är exempeltext för att fylla rutor och för mig att labba*/
+import java.util.Scanner;
+
+/* All text är exempeltext för att fylla rutor och för mig att labba*/
 
 public class TBA {
 
@@ -6,6 +8,7 @@ public class TBA {
 
 		Scanner input = new Scanner(System.in);
 		int a = 0;
+		int adv = 0;
 
 		System.out.println("Welcome to a text based adventure!");
 		System.out.println("Select your name:");
@@ -34,16 +37,43 @@ public class TBA {
 			}
 		}
 		if (a == 1) {
-			System.out.println("You wake up in your bed thinking what you will wear today.");
-			System.out.println("Will you rise?");
-			System.out.println("Yes or no?");
+			System.out.printf("\n\nYou wake up in your bed thinking what you will wear today.");
+			System.out.println();
+			System.out.println();
+			System.out.printf("Will you rise?\n");
+			System.out.printf("Yes or no?\n");
 			String rise = input.nextLine();
-			if(rise.equals("no")) {
+			if (rise.equals("no")) {
 				System.out.println("You stay in bed.");
-			}
-			else if(rise.equals("yes")) {
+			} else if (rise.equals("yes")) {
 				System.out.println("You rise from bed.");
 			}
+			else if (rise.equals("Yes")) {
+				System.out.println("You rise from bed.");
+			
 		}
 	}
+		System.out.println("You walk up to your closet and open the door. You find school uniform upon school uniform. What wil you wear? ");
+		System.out.println("School uniform");
+		System.out.println("School uniform");
+		System.out.println("School uniform");
+		String uni = input.nextLine();
+		if(uni.equals("School uniform")) {
+			System.out.println("You wore the school uniform.");
+		}
+		System.out.println("You see a faint glow in the dark closet... Do you want to investigate?");
+		String us = input.nextLine();
+		if(us.equals("yes")) {
+			System.out.println("You look further into your closet and to your exstatic suprise there is a buttfucking midget in there with his homosexual friend Hans who is from Germany and loves Greta.");
+			 adv = 1;
+		}
+		else {
+			System.out.println("You did not investigate");
+			 adv = 0;
+		}
+		
+		if(adv == 0) {
+			System.out.println("You walk out of your room downstairs to the kitchen.");
+		}
+}		
 }
