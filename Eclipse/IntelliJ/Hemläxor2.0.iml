@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../Programmer-Fabian/Hemläxor2.0/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../Programmer-Fabian/Hemläxor2.0">
+      <sourceFolder url="file://$MODULE_DIR$/../Programmer-Fabian/Hemläxor2.0/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../Programmer-Fabian/Hemläxor2.0/v40" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../Programmer-Fabian/Hemläxor2.0/Extra" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../Programmer-Fabian/Hemläxor2.0/v43" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../Programmer-Fabian/Hemläxor2.0/Random Projects" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../Programmer-Fabian/Hemläxor2.0/Random Projects/src" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="inheritedJdk" />
+  </component>
+</module>
