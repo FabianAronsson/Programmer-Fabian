@@ -22,26 +22,27 @@ public class Länder {
                 incorrectCountries[i] = country;
             }
         }
-        if (correctCountries == null) {
-            System.out.println("No correct countries");
-        } else {
-            System.out.println("Correct countries");
-            for (String name : correctCountries) {
-                if (name != null) {
-                    System.out.println(name);
-                }
+
+        System.out.println("Correct Answers:");
+        for (String name : correctCountries) {
+            if (name != null) {
+                System.out.println(name);
             }
         }
 
-        if (incorrectCountries == null) {
-            System.out.println("No correct countries! Better luck next time.");
-        } else {
-            System.out.println("Incorrect countries");
-            for (String name : incorrectCountries) {
-                if (name != null) {
-                    System.out.println(name);
-                }
+        System.out.println();
+        System.out.println("Incorrect answers:");
+        for (String name : incorrectCountries) {
+            if (name != null) {
+                System.out.println(name);
             }
+        }
+
+        System.out.println();
+        System.out.println("The countries in Scandinavia:");
+
+        for (String name:countries) {
+            System.out.println(name);
         }
     }
 }
