@@ -10,7 +10,9 @@ public class talspelet {
     static boolean isDifficultyHard = false;
     static boolean isMultiplayer = false;
     static int correctAnswer = 0;
-
+    static boolean gameIsStarted = true;
+    static int playerGuessCounter = 0;
+    static int playerTurnIndicator = 1;
 
     public static void main(String[] args) {
         startGame();
@@ -24,7 +26,7 @@ public class talspelet {
 
         System.out.println("Which diff?");
         pickDifficulty();
-
+        randomNumberGenerator();
         if (isMultiplayer){
             multiplayerGame();
         }
@@ -36,6 +38,15 @@ public class talspelet {
 
     public static void multiplayerGame() {
         if (isDifficultyEasy){
+            while(gameIsStarted){
+                playerTurnIndicator = 1;
+                System.out.println("Player One, make your guess!");
+                difficultyEasy(checkIfStringIsInteger());
+                playerTurnIndicator = 2;
+                System.out.println("Player Two, make your guess");
+                difficultyEasy(checkIfStringIsInteger());
+                playerGuessCounter++;
+            }
 
         }
         else if (isDifficultyNormal){
@@ -58,12 +69,54 @@ public class talspelet {
         }
     }
 
-    public static void difficultyEasy() {
-        if(checkIfStringIsInteger() == correctAnswer){
-            win the game
+    public static void difficultyEasy(int playerGuess) {
+        if(playerGuess == correctAnswer){
+            printResult();
         }
-        else if
+        else if(playerGuess < correctAnswer){
+            System.out.println("Your answer is a bit too low.");
+        }
+        else {
+            System.out.println("Your answer is a bit too high.");
+        }
     }
+
+    public static void printResult() {
+        if (isMultiplayer){
+            if (playerTurnIndicator == 1){
+                System.out.printf("Congratulations Player One! You won! \nAmount of guesses:\nPlayer One: " + playerGuessCounter, "\nPlayer Two: " + (playerGuessCounter - 1));
+            }
+            else{
+                System.out.printf("Congratulations Player Two! You won! \nAmount of guesses:\nPlayer One: " + playerGuessCounter, "\nPlayer Two: " + playerGuessCounter);
+            }
+        }
+        else{
+            System.out.printf("Congratulations Player Two! You won! %nAmount of guesses:%nPlayer One: " + playerGuessCounter);
+        }
+        System.out.println("Do you want to play again? Type 1 for YES and 2 for NO.");
+        if(checkIfStringIsInteger() == 1){
+            setAllSettingsToDefault();
+        }
+        else{
+            System.out.println("Thanks For Playing!");
+            System.exit(0);
+        }
+
+    }
+
+    public static void setAllSettingsToDefault() {
+        boolean isDifficultyEasy = false;
+        boolean isDifficultyNormal = false;
+        boolean isDifficultyHard = false;
+        boolean isMultiplayer = false;
+        int correctAnswer = 0;
+        boolean gameIsStarted = true;
+        int playerGuessCounter = 0;
+        int playerTurnIndicator = 1;
+
+        startGame();
+    }
+
 
     public static int randomNumberGenerator() {
         Random randomizedInteger = new Random();
@@ -79,7 +132,7 @@ public class talspelet {
         return correctAnswer;
     }
 
-    
+
 
     public static boolean checkIfMultiplayer() {
         boolean testAmountOfPlayer = true;
