@@ -9,6 +9,7 @@ public class talspelet {
     static boolean isDifficultyNormal = false;
     static boolean isDifficultyHard = false;
     static boolean isMultiplayer = false;
+    static int correctAnswer = 0;
 
 
     public static void main(String[] args) {
@@ -16,28 +17,83 @@ public class talspelet {
     }
 
     public static void startGame() {
-        Random rand = new Random();
-        boolean isMultiplayer = false;
         System.out.println("Welcome... rules");
+
         System.out.println("How many players...");
-        checkIfMultiplayer()
+        checkIfMultiplayer();
+
         System.out.println("Which diff?");
         pickDifficulty();
 
+        if (isMultiplayer){
+            multiplayerGame();
+        }
+        else{
+            singleplayerGame();
+        }
 
     }
 
+    public static void multiplayerGame() {
+        if (isDifficultyEasy){
+
+        }
+        else if (isDifficultyNormal){
+
+        }
+        else{
+            diffhard
+        }
+    }
+
+    public static void singleplayerGame() {
+        if (isDifficultyEasy){
+
+        }
+        else if (isDifficultyNormal){
+
+        }
+        else{
+            diffhard
+        }
+    }
+
+    public static void difficultyEasy() {
+        if(checkIfStringIsInteger() == correctAnswer){
+            win the game
+        }
+        else if
+    }
+
+    public static int randomNumberGenerator() {
+        Random randomizedInteger = new Random();
+        if(isDifficultyEasy){
+            correctAnswer = randomizedInteger.nextInt(10);
+        }
+        else if(isDifficultyNormal){
+            correctAnswer = randomizedInteger.nextInt(50);
+        }
+        else{ //Hard
+            correctAnswer = randomizedInteger.nextInt(100);
+        }
+        return correctAnswer;
+    }
+
+    
+
     public static boolean checkIfMultiplayer() {
-        boolean testAmountOfplayer = true;
+        boolean testAmountOfPlayer = true;
         System.out.println("How many players? (1-2");
-        while(testAmountOfplayer){
+        while(testAmountOfPlayer){
             int intToTest = checkIfStringIsInteger();
             if (intToTest == 1){
                 isMultiplayer = false;
+                System.out.println("Game set to singleplayer mode!");
                 return isMultiplayer; //returns false for multiplayer
             }
             else if (intToTest == 2){
                 isMultiplayer = true;
+                System.out.println("Game set to multiplayer mode!");
                 return isMultiplayer; //returns true for multiplayer
             }
             else{
