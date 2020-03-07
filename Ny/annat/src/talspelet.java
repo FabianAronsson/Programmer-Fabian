@@ -14,13 +14,11 @@ public class talspelet {
     static int playerTurnIndicator = 1;
 
     public static void main(String[] args) {
-        startGame();
+        //startGame();
     }
 
     public static void startGame() {
         System.out.println("Welcome... rules");
-
-        System.out.println("How many players...");
         checkIfMultiplayer();
 
         System.out.println("Which diff?");
@@ -181,7 +179,7 @@ public class talspelet {
 
     public static boolean checkIfMultiplayer() {
         boolean testAmountOfPlayer = true;
-        System.out.println("How many players? (1-2");
+        System.out.println("How many players? (1-2)");
         while (testAmountOfPlayer) {
             int intToTest = checkIfStringIsInteger();
             if (intToTest == 1) {
@@ -225,22 +223,23 @@ public class talspelet {
 
         while (checkStringProcess) {
             try {
-                inputFromUser = input.nextLine();
-                checkStringProcess = false;
-            } catch (InputMismatchException e) {
-                System.out.println("Your input is too large!");
+                while(checkStringProcess){
+                    checkStringProcess = false;
+                    inputFromUser = input.nextLine();
+                    for (int i = 0; i < inputFromUser.length(); i++) {
+                        if (!(Character.isDigit(inputFromUser.charAt(i)))) {
+                            System.out.println("Wrong input!");
+                            checkStringProcess = true;
+                            break;
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Your input is too large or invalid!");
                 checkStringProcess = true;
             }
         }
-
-        for (int i = 0; i < inputFromUser.length() - 1; i++) {
-            if (!Character.isDigit(inputFromUser.charAt(i))) {
-                System.out.println("Wrong input!");
-                break;
-            } else {
-                convertedToInteger = Integer.parseInt(inputFromUser);
-            }
-        }
+        convertedToInteger = Integer.parseInt(inputFromUser);
         return convertedToInteger;
     }
 }
