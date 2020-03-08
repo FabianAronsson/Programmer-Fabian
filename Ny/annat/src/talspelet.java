@@ -211,7 +211,7 @@ public class talspelet {
                 isMultiplayer = true;
                 System.out.println("Game set to multiplayer mode.");
                 return isMultiplayer; //returns true for multiplayer
-            } else {
+            } else { //if any other value than 1 or 2 is entered, then the game will throw it as an invalid input.
                 System.out.println("This is an invalid input. Please input either 1 or 2.");
             }
         }
