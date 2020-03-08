@@ -12,13 +12,13 @@ public class TBA {
 
 		System.out.println("Welcome to a text based adventure!");
 		System.out.println("Select your name:");
-		String name = input.nextLine();
-		/* System.out.println(name); */
+		String name = input.nextLine(); 	/* System.out.println(name); */
+		
 		System.out.printf("Choose your personality:\n" + "The Wise one: " + "This is the one that is very wise\n");
 		System.out.printf("The Creative one: " + "This is the one that is very creative\n");
 		System.out.println("The Handsome one: " + "This is the one that is very handsome\n");
 		for (int i = 0; i < 10; i++) {
-			String pes = input.nextLine(); /* pes står för personality */
+			String pes = input.nextLine(); 	/* pes står för personality */
 			if (pes.equals("Wise") || pes.equals("wise")) {
 				System.out.printf("Welcome Wise one!\n");
 				System.out.printf("You recieved knowledge 1000! A pair of asian parents \nand a massive brain!");
