@@ -18,12 +18,6 @@ public class talspelet {
         startGame();
     }
 
-    public static void flood() {
-        for (int i = 0; i < 10; i++){
-            System.out.println();
-        }
-    }
-
     public static void startGame() {
         System.out.println(" __      __       .__                                  __           \n" +
                 "/  \\    /  \\ ____ |  |   ____  ____   _____   ____   _/  |_  ____   \n" +
@@ -45,7 +39,6 @@ public class talspelet {
                 "%nNormal: in this difficulty you guess a number between 0-50 and you have a limited amount of guesses. The limit is 8 guesses.%nHard: in this difficulty you guess a number between 0-100 and you have a limited amount of guesses. The limit is 5 guesses.%n");
         pickDifficulty();
         randomNumberGenerator();
-        flood();
         if (isMultiplayer) {
             multiplayerGame();
         } else {
@@ -127,8 +120,11 @@ public class talspelet {
         if (playerGuess == correctAnswer) {
             printResult();
         }
+        else if (playerGuess > 11){
+            System.out.println("This number is not part of the guessing. For Easy, you are guessing a number between 0 and 10.");
+        }
         else if (playerGuess - correctAnswer == 1 || playerGuess - correctAnswer == -1){
-            System.out.println("Close, but not quite.");
+            System.out.println("You are very close.");
         }
         else if (playerGuess < correctAnswer) {
             System.out.printf("%nYour answer is a tad bit too low.%n");
@@ -140,7 +136,17 @@ public class talspelet {
     public static void difficultyNormal(int playerGuess) {
         if (playerGuess == correctAnswer) {
             printResult();
-        } else if (playerGuess < correctAnswer) {
+        }
+        else if (playerGuess > 51){
+            System.out.println("This number is not part of the guessing. For Normal, you are guessing a number between 0 and 50.");
+        }
+        else if (playerGuess - correctAnswer == 1 || playerGuess - correctAnswer == -1){
+            System.out.println("You are very close.");
+        }
+        else if (playerGuess - correctAnswer == 2 || playerGuess - correctAnswer == -2){
+            System.out.println("Close, but not quite.");
+        }
+        else if (playerGuess < correctAnswer) {
             System.out.printf("%nYour answer is too low.%n");
         } else {
             System.out.printf("%nYour answer is too high.%n");
@@ -189,8 +195,15 @@ public class talspelet {
         if (checkIfStringIsInteger() == 1) {
             setAllSettingsToDefault();
         } else {
+            clearConsole();
             System.out.println("Thanks For Playing!");
             System.exit(0);
+        }
+    }
+
+    public static void clearConsole() {
+        for (int i = 0; i < 50; i++){
+            System.out.println();
         }
     }
 
@@ -225,18 +238,18 @@ public class talspelet {
         while (testAmountOfPlayer) {
             int intToTest = checkIfStringIsInteger();
             if (intToTest == 1) {
+                System.out.println("Game is set to singleplayer mode.");
                 isMultiplayer = false;
                 System.out.println("Enter your name below:");
                 playerOneName = input.nextLine();
-                System.out.println("Game is set to singleplayer mode.");
                 testAmountOfPlayer = false;
             } else if (intToTest == 2) {
+                System.out.println("Game is set to multiplayer mode.");
                 isMultiplayer = true;
                 System.out.println("Player One, enter you name below:");
                 playerOneName = input.nextLine();
                 System.out.println("Player Two, enter you name below:");
                 playerTwoName = input.nextLine();
-                System.out.println("Game is set to multiplayer mode.");
                 testAmountOfPlayer = false;
             } else { //if any other value than 1 or 2 is entered, then the game will throw it as an invalid input.
                 System.out.println("Please enter either 1 or 2.");
@@ -285,7 +298,7 @@ public class talspelet {
                     inputFromUser = input.nextLine();
                     for (int i = 0; i < inputFromUser.length(); i++) {
                         if (!(Character.isDigit(inputFromUser.charAt(i)))) {
-                            System.out.println("Please enter a number!");
+                            System.out.println("Please enter a number! You might have entered negative number or, you did not enter a valid number (aka you entered text).");
                             checkStringProcess = true;
                             break;
                         }
