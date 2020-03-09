@@ -7,6 +7,7 @@ public class Länder {
         String[] correctCountries = new String[4];
         String[] incorrectCountries = new String[4];
         boolean one = false;
+        boolean two = false;
         System.out.println("Write all countries in Scandinavia:");
         for (int i = 0; i < 4; i++) {
             String country = input.nextLine();
@@ -23,13 +24,22 @@ public class Länder {
             }
         }
 
-        System.out.println("Correct Answers:");
-        for (String name : correctCountries) {
-            if (name != null) {
-                System.out.println(name);
+        if (!two) {
+            System.out.println("All correct.");
+            for (String name : correctCountries) {
+                if (name == null) {
+                    two = true
+                }
             }
         }
-
+        if (!two) {
+            System.out.println("Correct Answers:");
+            for (String name : correctCountries) {
+                if (name != null) {
+                    System.out.println(name);
+                }
+            }
+        }
         System.out.println();
         System.out.println("Incorrect answers:");
         for (String name : incorrectCountries) {

@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Ny:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Ny_jar</output-path>
+    <root id="archive" name="Ny.jar">
+      <element id="module-output" name="annat" />
+      <element id="module-output" name="Ny" />
+    </root>
+  </artifact>
+</component>
