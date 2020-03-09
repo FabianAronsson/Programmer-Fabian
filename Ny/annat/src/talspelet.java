@@ -18,6 +18,10 @@ public class talspelet {
         startGame();
     }
 
+    /**
+     * This method is the starting method. It acts as a main menu as it is here where you make your settings as such. The method welcomes the user(s), explains the rules
+     * and calls methods necessary to start the game.
+     */
     public static void startGame() {
         System.out.println(" __      __       .__                                  __           \n" +
                 "/  \\    /  \\ ____ |  |   ____  ____   _____   ____   _/  |_  ____   \n" +
@@ -37,16 +41,25 @@ public class talspelet {
 
         System.out.printf("%nWhich difficulty?%nEach of the difficulties are a bit different from each other.%nEasy: in this difficulty you guess a number between 0-10 and you have an unlimited amount of guesses." +
                 "%nNormal: in this difficulty you guess a number between 0-50 and you have a limited amount of guesses. The limit is 8 guesses.%nHard: in this difficulty you guess a number between 0-100 and you have a limited amount of guesses. The limit is 5 guesses.%n");
+
         pickDifficulty();
         randomNumberGenerator();
+
         if (isMultiplayer) {
             multiplayerGame();
         } else {
             singleplayerGame();
         }
-
     }
 
+    /**
+     * If the user chooses multiplayer mode, then this method will be called upon. Inside this method you can find three different difficulties,
+     * one of them is choosen depending of what the user picked before when deciding difficulty. This is where the game actually start. A while loop
+     * runs the entire game and it is here where everything comes back to once the users made their guess. Each of the users guess once and a player turn indicator
+     * is there in order to keep track of whos turn it is. This is useful for "printResult();", since otherwise the game will not exactly know who won.
+     * There is also a counter that keeps track of the guesses each user makes. This is used for the results and also to check if a user has exceeded the limit
+     * put on some of the difficulties.
+     */
     public static void multiplayerGame() {
         while (isDifficultyEasy) {
             playerTurnIndicator = 1;
@@ -80,6 +93,11 @@ public class talspelet {
         }
     }
 
+    /**
+     * Just like in the multplayerGame() method, this method contains three difficulties that the user choose before and makes a guess until the condition is satisfied,
+     * that is if the user enters the correct guess or if the user runs out of guesses. SingleplayerGame() and multplayerGame() is very similar. The reason to keep
+     * them separate is to achieve better readability. What differentiate the methods is that one is singplayer and the other is multiplayer.
+     */
     public static void singleplayerGame() {
         while (isDifficultyEasy) {
             System.out.println(playerOneName + ", make your guess!");
@@ -103,6 +121,12 @@ public class talspelet {
         }
     }
 
+    /**
+     * A simple method that checks if the user has made too many guesses for difficulties "Hard" and "Normal". If that is the case, then the game calls printResult();
+     * which means "Game Over".
+     *
+     * @param amountOfGuesses This is an int which get its value from playerGuessCounter
+     */
     public static void checkAmountOfGuessesDone(int amountOfGuesses) {
         if (isDifficultyHard) {
             if (amountOfGuesses == 5) {
@@ -113,9 +137,14 @@ public class talspelet {
                 printResult();
             }
         }
-
     }
 
+    /**
+     * This method checks whether the user is correct, close or outside of the guessing range. If the user is one away from the correct answer, then the game
+     * will inform the user about that.
+     *
+     * @param playerGuess The guess from the user to be tested. This is an int.
+     */
     public static void difficultyEasy(int playerGuess) {
         if (playerGuess == correctAnswer) {
             printResult();
@@ -130,6 +159,12 @@ public class talspelet {
         }
     }
 
+    /**
+     * Just like the previous method, difficultyEasy();, this method almost does the same thing except it is a bit harder. On Normal the user gets a clue if
+     * their guess is one or two away. This is to compensate for the guessing limit that Normal has.
+     *
+     * @param playerGuess The guess from the user to be tested. This is an int.
+     */
     public static void difficultyNormal(int playerGuess) {
         if (playerGuess == correctAnswer) {
             printResult();
@@ -146,9 +181,14 @@ public class talspelet {
         }
     }
 
+    /**
+     * @param playerGuess
+     */
     public static void difficultyHard(int playerGuess) {
         if (playerGuess == correctAnswer) {
             printResult();
+        } else if (playerGuess > 101) {
+            System.out.println("This number is not part of the guessing. For Hard, you are guessing a number between 0 and 100.");
         } else if (playerGuess < correctAnswer) {
             System.out.printf("%nYour answer is too low.%n");
         } else {
@@ -202,6 +242,7 @@ public class talspelet {
     }
 
     public static void setAllSettingsToDefault() {
+        clearConsole();
         isDifficultyEasy = false;
         isDifficultyNormal = false;
         isDifficultyHard = false;
@@ -211,12 +252,12 @@ public class talspelet {
         playerTurnIndicator = 1;
         playerOneName = "";
         playerTwoName = "";
-
         startGame();
     }
 
     public static void randomNumberGenerator() {
         Random randomizedInteger = new Random();
+
         if (isDifficultyEasy) {
             correctAnswer = randomizedInteger.nextInt(11);
         } else if (isDifficultyNormal) {
@@ -228,6 +269,7 @@ public class talspelet {
 
     public static void checkIfMultiplayer() {
         boolean testAmountOfPlayer = true;
+
         System.out.println("How many players? (1-2)");
         while (testAmountOfPlayer) {
             int intToTest = checkIfStringIsInteger();
@@ -257,6 +299,7 @@ public class talspelet {
         System.out.println("(2) Normal");
         System.out.println("(3) Hard");
         boolean checkDifficulty = true;
+
         while (checkDifficulty) {
             switch (checkIfStringIsInteger()) {
                 case 1: //Easy
@@ -285,31 +328,24 @@ public class talspelet {
         String inputFromUser = "";
         boolean checkStringProcess = true;
 
-        while (checkStringProcess) {
-            try {
-                while (checkStringProcess) {
-                    checkStringProcess = false;
-                    inputFromUser = input.nextLine();
-                    for (int i = 0; i < inputFromUser.length(); i++) {
-                        if (!(Character.isDigit(inputFromUser.charAt(i)))) {
-                            System.out.println("Please enter a number! You might have entered negative number or, you did not enter a valid number (aka you entered text).");
-                            checkStringProcess = true;
-                            break;
-                        }
+        while (true) {
+            while(checkStringProcess){
+                checkStringProcess = false;
+                inputFromUser = input.nextLine();
+                for (int i = 0; i < inputFromUser.length(); i++) {
+                    if (!(Character.isDigit(inputFromUser.charAt(i)))) {
+                        System.out.println("Please enter a number! You might have entered negative number or, you did not enter a valid number (aka you entered text).");
+                        checkStringProcess = true;
+                        break;
                     }
                 }
-            } catch (Exception e) {
-                System.out.println("Your input is either too large or not a number.");
-                checkStringProcess = true;
             }
+            checkStringProcess = true;
             try {
-                convertedToInteger = Integer.parseInt(inputFromUser);
-                return convertedToInteger;
+                return Integer.parseInt(inputFromUser);
             } catch (Exception e) {
                 System.out.println("Your input is either too large or not a number.");
-                input.nextLine();
             }
         }
-        return convertedToInteger;
     }
 }
