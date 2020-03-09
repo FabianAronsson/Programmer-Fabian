@@ -11,6 +11,8 @@ public class talspelet {
     static int correctAnswer = 0;
     static int playerGuessCounter = 0;
     static int playerTurnIndicator = 1;
+    static String playerOneName = "";
+    static String playerTwoName = "";
 
     public static void main(String[] args) {
         startGame();
@@ -34,7 +36,7 @@ public class talspelet {
         checkIfMultiplayer();
 
         System.out.printf("%nWhich difficulty?%nEach of the difficulties are a bit different from each other.%nEasy: in this difficulty you guess a number between 0-10 and you have an unlimited amount of guesses." +
-                "%nNormal: in this difficulty you guess a number between 0-50 and you have an unlimited amount of guesses.%nHard: in this difficulty you guess a number between 0-100 and you have a limited amount of guesses. The limit is 8 guesses.%n");
+                "%nNormal: in this difficulty you guess a number between 0-50 and you have a limited amount of guesses. The limit is 8 guesses.%nHard: in this difficulty you guess a number between 0-100 and you have a limited amount of guesses. The limit is 5 guesses.%n");
         pickDifficulty();
         randomNumberGenerator();
         if (isMultiplayer) {
@@ -48,31 +50,31 @@ public class talspelet {
     public static void multiplayerGame() {
         while (isDifficultyEasy) {
             playerTurnIndicator = 1;
-            System.out.println("Player One, make your guess!");
+            System.out.println(playerOneName + ", make your guess!");
             playerGuessCounter++;
             difficultyEasy(checkIfStringIsInteger());
             playerTurnIndicator = 2;
-            System.out.println("Player Two, make your guess");
+            System.out.println(playerTwoName + ", make your guess");
             difficultyEasy(checkIfStringIsInteger());
         }
 
         while (isDifficultyNormal) {
             playerTurnIndicator = 1;
-            System.out.println("Player One, make your guess!");
+            System.out.println(playerOneName + ", make your guess!");
             playerGuessCounter++;
             difficultyNormal(checkIfStringIsInteger());
             playerTurnIndicator = 2;
-            System.out.println("Player Two, make your guess");
+            System.out.println(playerTwoName + ", make your guess");
             difficultyNormal(checkIfStringIsInteger());
         }
 
         while (isDifficultyHard) {
             playerTurnIndicator = 1;
-            System.out.println("Player One, make your guess!");
+            System.out.println(playerOneName + ", make your guess!");
             playerGuessCounter++;
             difficultyHard(checkIfStringIsInteger());
             playerTurnIndicator = 2;
-            System.out.println("Player Two, make your guess");
+            System.out.println(playerTwoName + ", make your guess");
             difficultyHard(checkIfStringIsInteger());
             checkAmountOfGuessesDone(playerGuessCounter);
         }
@@ -80,20 +82,20 @@ public class talspelet {
 
     public static void singleplayerGame() {
         while (isDifficultyEasy) {
-            System.out.println("Player One, make your guess!");
+            System.out.println(playerOneName + ", make your guess!");
             playerGuessCounter++;
             difficultyEasy(checkIfStringIsInteger());
 
         }
 
         while (isDifficultyNormal) {
-            System.out.println("Player One, make your guess!");
+            System.out.println(playerOneName + ", make your guess!");
             playerGuessCounter++;
             difficultyNormal(checkIfStringIsInteger());
         }
 
         while (isDifficultyHard) {
-            System.out.println("Player One, make your guess!");
+            System.out.println(playerOneName + ", make your guess!");
             playerGuessCounter++;
             difficultyHard(checkIfStringIsInteger());
             checkAmountOfGuessesDone(playerGuessCounter);
@@ -101,15 +103,27 @@ public class talspelet {
     }
 
     public static void checkAmountOfGuessesDone(int amountOfGuesses) {
-        if (amountOfGuesses == 8) {
-            printResult();
+        if (isDifficultyHard){
+            if (amountOfGuesses == 5) {
+                printResult();
+            }
         }
+        else{ //Normal
+            if (amountOfGuesses == 8) {
+                printResult();
+            }
+        }
+
     }
 
     public static void difficultyEasy(int playerGuess) {
         if (playerGuess == correctAnswer) {
             printResult();
-        } else if (playerGuess < correctAnswer) {
+        }
+        else if (playerGuess - correctAnswer == 1 || playerGuess - correctAnswer == -1){
+            System.out.println("Close, but not quite.");
+        }
+        else if (playerGuess < correctAnswer) {
             System.out.println("Your answer is a tad bit too low.");
         } else {
             System.out.println("Your answer is a tad bit too high.");
@@ -138,7 +152,7 @@ public class talspelet {
 
     public static void printResult() {
         if (isMultiplayer) {
-            if (playerGuessCounter == 8 && isDifficultyHard) {
+            if (playerGuessCounter == 5 && isDifficultyHard || playerGuessCounter == 8 && isDifficultyNormal) {
                 System.out.println("   _____          __  __ ______    ______      ________ _____  \n" +
                         "  / ____|   /\\   |  \\/  |  ____|  / __ \\ \\    / /  ____|  __ \\ \n" +
                         " | |  __   /  \\  | \\  / | |__    | |  | \\ \\  / /| |__  | |__) |\n" +
@@ -146,13 +160,13 @@ public class talspelet {
                         " | |__| |/ ____ \\| |  | | |____  | |__| | \\  /  | |____| | \\ \\ \n" +
                         "  \\_____/_/    \\_\\_|  |_|______|  \\____/   \\/   |______|_|  \\_\\\n" +
                         "                                                               \n");
-                System.out.println("You reached the guessing limit for Hard difficulty.");
+                System.out.println("You reached the guessing limit difficulty.");
             } else if (playerTurnIndicator == 1) {
-                System.out.println("Congratulations Player One! You won! \nAmount of guesses:\nPlayer One: " + playerGuessCounter + "\nPlayer Two: " + (playerGuessCounter - 1));
-            } else {
-                System.out.println("Congratulations Player Two! You won! \nAmount of guesses:\nPlayer One: " + playerGuessCounter + "\nPlayer Two: " + playerGuessCounter);
+                System.out.println("Congratulations " + playerOneName + "! You won! \nAmount of guesses:\n" + playerOneName + ": " + playerGuessCounter + "\n" + playerTwoName + ": " + (playerGuessCounter - 1));
+            } else { //player two wins if playerTurnIndicator is two
+                System.out.println("Congratulations " + playerTwoName + "! You won! \nAmount of guesses:\n" + playerOneName + ": " + playerGuessCounter + "\n" + playerTwoName + ": " + playerGuessCounter);
             }
-        } else if (playerGuessCounter == 8 && isDifficultyHard) {
+        } else if (playerGuessCounter == 5 && isDifficultyHard || playerGuessCounter == 8 && isDifficultyNormal) {
             System.out.println("   _____          __  __ ______    ______      ________ _____  \n" +
                     "  / ____|   /\\   |  \\/  |  ____|  / __ \\ \\    / /  ____|  __ \\ \n" +
                     " | |  __   /  \\  | \\  / | |__    | |  | \\ \\  / /| |__  | |__) |\n" +
@@ -162,7 +176,7 @@ public class talspelet {
                     "                                                               \n");
             System.out.println("You reached the guessing limit for Hard difficulty.");
         } else {
-            System.out.printf("Congratulations Player One! You won! %nAmount of guesses:%nPlayer One: " + playerGuessCounter + "%n");
+            System.out.printf("Congratulations " + playerOneName + "! You won! %nAmount of guesses:%n" + playerOneName + ": " + playerGuessCounter + "%n");
         }
         System.out.println("Do you want to play again? Type 1 for YES and 2 for NO (Or any other number for NO).");
         if (checkIfStringIsInteger() == 1) {
@@ -182,6 +196,8 @@ public class talspelet {
         correctAnswer = 0;
         playerGuessCounter = 0;
         playerTurnIndicator = 1;
+        playerOneName = "";
+        playerTwoName = "";
 
         startGame();
     }
@@ -205,11 +221,11 @@ public class talspelet {
             int intToTest = checkIfStringIsInteger();
             if (intToTest == 1) {
                 isMultiplayer = false;
-                System.out.println("Game set to singleplayer mode.");
+                System.out.println("Game is set to singleplayer mode.");
                 return isMultiplayer; //returns false for multiplayer
             } else if (intToTest == 2) {
                 isMultiplayer = true;
-                System.out.println("Game set to multiplayer mode.");
+                System.out.println("Game is set to multiplayer mode.");
                 return isMultiplayer; //returns true for multiplayer
             } else { //if any other value than 1 or 2 is entered, then the game will throw it as an invalid input.
                 System.out.println("This is an invalid input. Please input either 1 or 2.");
