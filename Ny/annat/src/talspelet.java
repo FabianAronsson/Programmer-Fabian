@@ -18,6 +18,12 @@ public class talspelet {
         startGame();
     }
 
+    public static void flood() {
+        for (int i = 0; i < 10; i++){
+            System.out.println();
+        }
+    }
+
     public static void startGame() {
         System.out.println(" __      __       .__                                  __           \n" +
                 "/  \\    /  \\ ____ |  |   ____  ____   _____   ____   _/  |_  ____   \n" +
@@ -39,6 +45,7 @@ public class talspelet {
                 "%nNormal: in this difficulty you guess a number between 0-50 and you have a limited amount of guesses. The limit is 8 guesses.%nHard: in this difficulty you guess a number between 0-100 and you have a limited amount of guesses. The limit is 5 guesses.%n");
         pickDifficulty();
         randomNumberGenerator();
+        flood();
         if (isMultiplayer) {
             multiplayerGame();
         } else {
@@ -124,9 +131,9 @@ public class talspelet {
             System.out.println("Close, but not quite.");
         }
         else if (playerGuess < correctAnswer) {
-            System.out.println("Your answer is a tad bit too low.");
+            System.out.printf("%nYour answer is a tad bit too low.%n");
         } else {
-            System.out.println("Your answer is a tad bit too high.");
+            System.out.printf("%nYour answer is a tad bit too high.%n");
         }
     }
 
@@ -134,9 +141,9 @@ public class talspelet {
         if (playerGuess == correctAnswer) {
             printResult();
         } else if (playerGuess < correctAnswer) {
-            System.out.println("Your answer is too low.");
+            System.out.printf("%nYour answer is too low.%n");
         } else {
-            System.out.println("Your answer is too high.");
+            System.out.printf("%nYour answer is too high.%n");
         }
     }
 
@@ -144,9 +151,9 @@ public class talspelet {
         if (playerGuess == correctAnswer) {
             printResult();
         } else if (playerGuess < correctAnswer) {
-            System.out.println("Your answer is too low.");
+            System.out.printf("%nYour answer is too low.%n");
         } else {
-            System.out.println("Your answer is too high.");
+            System.out.printf("%nYour answer is too high.%n");
         }
     }
 
@@ -185,7 +192,6 @@ public class talspelet {
             System.out.println("Thanks For Playing!");
             System.exit(0);
         }
-
     }
 
     public static void setAllSettingsToDefault() {
@@ -202,7 +208,7 @@ public class talspelet {
         startGame();
     }
 
-    public static int randomNumberGenerator() {
+    public static void randomNumberGenerator() {
         Random randomizedInteger = new Random();
         if (isDifficultyEasy) {
             correctAnswer = randomizedInteger.nextInt(11);
@@ -211,46 +217,60 @@ public class talspelet {
         } else { //Hard
             correctAnswer = randomizedInteger.nextInt(101);
         }
-        return correctAnswer;
     }
 
-    public static boolean checkIfMultiplayer() {
+    public static void checkIfMultiplayer() {
         boolean testAmountOfPlayer = true;
         System.out.println("How many players? (1-2)");
         while (testAmountOfPlayer) {
             int intToTest = checkIfStringIsInteger();
             if (intToTest == 1) {
                 isMultiplayer = false;
+                System.out.println("Enter your name below:");
+                playerOneName = input.nextLine();
                 System.out.println("Game is set to singleplayer mode.");
-                return isMultiplayer; //returns false for multiplayer
+                testAmountOfPlayer = false;
             } else if (intToTest == 2) {
                 isMultiplayer = true;
+                System.out.println("Player One, enter you name below:");
+                playerOneName = input.nextLine();
+                System.out.println("Player Two, enter you name below:");
+                playerTwoName = input.nextLine();
                 System.out.println("Game is set to multiplayer mode.");
-                return isMultiplayer; //returns true for multiplayer
+                testAmountOfPlayer = false;
             } else { //if any other value than 1 or 2 is entered, then the game will throw it as an invalid input.
-                System.out.println("This is an invalid input. Please input either 1 or 2.");
+                System.out.println("Please enter either 1 or 2.");
             }
         }
-        return false;
     }
 
-    public static boolean pickDifficulty() {
+    public static void pickDifficulty() {
         System.out.printf("%nType the number that corresponds to your desired difficulty:%n");
         System.out.println("(1) Easy");
         System.out.println("(2) Normal");
         System.out.println("(3) Hard");
-
-        switch (checkIfStringIsInteger()) {
-            case 1: //Easy
-                return isDifficultyEasy = true;
-            case 2: //Normal
-                return isDifficultyNormal = true;
-            case 3: //Hard
-                return isDifficultyHard = true;
-            default: //Any input that is not 1, 2 or 3.
-                System.out.println("The number you entered is invalid. Please enter a number between 1-3.");
+        boolean checkDifficulty = true;
+        while (checkDifficulty){
+            switch (checkIfStringIsInteger()) {
+                case 1: //Easy
+                    isDifficultyEasy = true;
+                    System.out.println("Game is set to Easy.");
+                    checkDifficulty = false;
+                    break;
+                case 2: //Normal
+                    isDifficultyNormal = true;
+                    System.out.println("Game is set to Normal.");
+                    checkDifficulty = false;
+                    break;
+                case 3: //Hard
+                    isDifficultyHard = true;
+                    System.out.println("Game is set to Hard.");
+                    checkDifficulty = false;
+                    break;
+                default: //Any input that is not 1, 2 or 3.
+                    System.out.println("Please enter a number between 1-3.");
+            }
         }
-        return false;
     }
 
     public static int checkIfStringIsInteger() {
@@ -265,18 +285,24 @@ public class talspelet {
                     inputFromUser = input.nextLine();
                     for (int i = 0; i < inputFromUser.length(); i++) {
                         if (!(Character.isDigit(inputFromUser.charAt(i)))) {
-                            System.out.println("Wrong input!");
+                            System.out.println("Please enter a number!");
                             checkStringProcess = true;
                             break;
                         }
                     }
                 }
             } catch (Exception e) {
-                System.out.println("Your input is too large or invalid!");
+                System.out.println("Your input is either too large or not a number.");
                 checkStringProcess = true;
             }
+            try{
+                convertedToInteger = Integer.parseInt(inputFromUser);
+                return convertedToInteger;
+            }
+            catch(Exception e){
+                System.out.println("Your input is either too large or not a number.");
+            }
         }
-        convertedToInteger = Integer.parseInt(inputFromUser);
         return convertedToInteger;
     }
 }
