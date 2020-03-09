@@ -1,3 +1,8 @@
+/*
+ * Name: Talspelet
+ *
+ * @author Fabian Aronsson TE18C
+ */
 import java.util.Random;
 import java.util.Scanner;
 import java.lang.Character;
@@ -182,7 +187,10 @@ public class talspelet {
     }
 
     /**
-     * @param playerGuess
+     * Once again, this method works in similar fashion as difficultyEasy and difficultyNormal does. This time however you do not get any precise clues, rather pretty vague ones.
+     * Apart from this, the game tells the user if the guess is outside of the guessing interval.
+     *
+     * @param playerGuess   The guess from the user to be tested. This is an int.
      */
     public static void difficultyHard(int playerGuess) {
         if (playerGuess == correctAnswer) {
@@ -196,6 +204,11 @@ public class talspelet {
         }
     }
 
+    /**
+     * This method decides if you won and who won. It does this by using global variables and checks different conditions in order to make sure the correct user wins or if the guessing
+     * limit was reached. The method prints out the amount of guesses each player made during the game.
+     *
+     */
     public static void printResult() {
         clearConsole();
         if (isMultiplayer) {
@@ -235,12 +248,22 @@ public class talspelet {
         }
     }
 
+    /**
+     * A very basic method whose purpose is to clear the console. The reason I used a separate method is because there is not a built in function that does this for me.
+     * It can be done with other IDEs but no with Intellij. It works by printing a new line 50 times using a for-loop.
+     *
+     */
     public static void clearConsole() {
         for (int i = 0; i < 50; i++) {
             System.out.println();
         }
     }
 
+    /**
+     * In order for the game to be functioning if you restart it there had to be a method which resets all the settings. Every global variable is reset to its original value in
+     * order to not create any possible conflicts when entering new data.
+     *
+     */
     public static void setAllSettingsToDefault() {
         clearConsole();
         isDifficultyEasy = false;
@@ -255,6 +278,11 @@ public class talspelet {
         startGame();
     }
 
+    /**
+     * This method generates a random number using the class Random. I could have used Math.random, but this was not ideal since I would end up with a double and
+     * the syntax for Random is very straightforward and easy to use. However, there would not be a big difference from using Math and Random.
+     *
+     */
     public static void randomNumberGenerator() {
         Random randomizedInteger = new Random();
 
@@ -267,6 +295,11 @@ public class talspelet {
         }
     }
 
+    /**
+     * This method prompts the user to pick multiplayer or singleplayer. After the user decides, the game asks what the user or users want to be called when playing. If a value
+     * that is not 1 or 2 is entered then, the game will inform the user to enter a valid number.
+     *
+     */
     public static void checkIfMultiplayer() {
         boolean testAmountOfPlayer = true;
 
@@ -293,6 +326,12 @@ public class talspelet {
         }
     }
 
+    /**
+     *  Here the game asks what difficulty the user wants to play on. It works by combining a while-loop and a switch-statement. A while-loop to allow the user to make an unlimited
+     *  amount of tries and a switch-statement to decide what difficulty to play on. Once a difficulty is chosen, the game sets one of the global difficulty variables to true,
+     *  informs the user and exits the while-loop.
+     *
+     */
     public static void pickDifficulty() {
         System.out.printf("%nEnter the number that corresponds to your desired difficulty:%n");
         System.out.println("(1) Easy");
@@ -323,8 +362,17 @@ public class talspelet {
         }
     }
 
+    /**
+     * This method acts as an error handler. It does this by taking a String from the user and, checks if the String contains anything that is not numbers. If the String contain a single
+     * char or more, then the for-loop will stop and the user is informed. If however, the user only enter numbers, another check is there to prevent errors such as NumberFormatException. That
+     * error occurs if the user enters a value greater than the allowed maximum. Afterwards the String is parsed into an int and returned back ready to be used. Whenever an input is asked
+     * from the user, this error handler is called upon. This is because the user might enter something that is not a function in the game. For example, if I used nextInt the game would
+     * crash immediately if the user entered anything that is not a number. To solve this I instead use a String and after the String has passed numerous checks it is then parsed to an int.
+     * A String can for example, hold a value that is gigantic and accepts all input from the user.
+     *
+     * @return Returns the verified String into an int.
+     */
     public static int checkIfStringIsInteger() {
-        int convertedToInteger = 0;
         String inputFromUser = "";
         boolean checkStringProcess = true;
 
