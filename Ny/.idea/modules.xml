@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Ny.iml" filepath="$PROJECT_DIR$/Ny.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bonusUppgifter/bonusUppgifter.iml" filepath="$PROJECT_DIR$/bonusUppgifter/bonusUppgifter.iml" />
       <module fileurl="file://$PROJECT_DIR$/v4/v4.iml" filepath="$PROJECT_DIR$/v4/v4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/v5/v5.iml" filepath="$PROJECT_DIR$/v5/v5.iml" />
     </modules>
   </component>
 </project>
