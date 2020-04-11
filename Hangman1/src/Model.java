@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Model {
 
     private String correctAnswer;
-    private String hintBar;
+    private ArrayList<String> hintBar;
     private ArrayList<String> usedCharacters;
     private String userGuess;
     public final File INCORRECTGUESSSOUND = new File("incorrectguess.WAV");
@@ -27,11 +27,11 @@ public class Model {
         this.correctAnswer = correctAnswer;
     }
 
-    public String getHintBar() {
+    public ArrayList<String> getHintBar() {
         return hintBar;
     }
 
-    public void setHintBar(String hintBar){
+    public void setHintBar(ArrayList<String> hintBar){
         this.hintBar = hintBar;
     }
 
