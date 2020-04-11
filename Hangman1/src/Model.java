@@ -6,6 +6,7 @@ public class Model {
     private String correctAnswer;
     private String hintBar;
     private ArrayList<String> usedCharacters;
+    private String userGuess;
     public final File INCORRECTGUESSSOUND = new File("incorrectguess.WAV");
     public final File CORRECTGUESSSOUND = new File("correctguess.WAV");
     public final File CORRECTANSWERSOUND = new File("correctanswer.WAV");
@@ -13,6 +14,13 @@ public class Model {
 
     public String getCorrectAnswer() {
         return correctAnswer;
+    }
+
+    public String getUserGuess() {
+        return userGuess;
+    }
+    public void setUserGuess(String userGuess){
+        this.userGuess = userGuess;
     }
 
     public void setCorrectAnswer(String correctAnswer){

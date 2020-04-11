@@ -11,7 +11,7 @@ public class Controller {
     static View view = new View();
 
     public void startGame() {
-        getUserInput();
+        guessPhase();
     }
 
     public void guessPhase(){
@@ -23,9 +23,12 @@ public class Controller {
         }
     }
 
+
+
     public String getUserInput(){
         Scanner input = new Scanner(System.in);
-        return input.nextLine();
+        model.setUserGuess(input.nextLine());
+        return model.getUserGuess();
     }
 
     public String isUserInputCorrect(String userInput){
@@ -33,14 +36,34 @@ public class Controller {
         for (int i = 0; i < userInput.length(); i++){
             if (!Character.toString(userInput.charAt(i)).matches("^[A-Za-z]")){
                 view.printNotALetterInformation();
-                getUserInput();
+                guessPhase();
             }
         }
         return userInput.toLowerCase();
     }
 
     public boolean doesUserInputMatchAnswer(String userGuess){
-        return userGuess.equals(model.getCorrectAnswer());
+
+
+        if (userGuess.length() == model.getCorrectAnswer().length()){
+            if (userGuess.equals(model.getCorrectAnswer())){
+                //kalla på resultatmetoden
+            }
+
+        }
+        else if(userGuess.length() == 1){
+            for (int i = 0; i < model.getCorrectAnswer().length(); i++){
+                if (userGuess.charAt(0) == model.getCorrectAnswer().charAt(i)){
+
+                    return true;
+                }
+            }
+            return false; //this means that the user entered an incorrect answer.
+        }
+        else{       //returns false if the user entered a value that is either greater than or less than the correct answer, but not if the value is 1 in length
+            return false;
+        }
+
 
     }
 
