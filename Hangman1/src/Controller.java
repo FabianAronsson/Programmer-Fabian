@@ -25,8 +25,17 @@ public class Controller {
             //kalla på ny metod för check
         } else { //if the user did not guess correctly then the process repeats itself
             //uppdatera hangmanStage
+            addUsedCharactersToArrayList();
             guessPhase();
         }
+    }
+
+    public void createHintBar(){
+        ArrayList<String> temp = model.getUsedCharacters();
+        for (int i = 0; i < model.getCorrectAnswer().length(); i++){
+            temp.add("_");
+        }
+        model.setHintBar(temp);
     }
 
     public void updateHintBar(){
