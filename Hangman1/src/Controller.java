@@ -30,8 +30,38 @@ public class Controller {
         }
     }
 
+    public boolean isMultiplayer(){
+        if (isUserInputANumber() == 0){
+            return true;
+        }
+        else if (isUserInputANumber() == 1){
+            return false;
+        }
+        else{
+            isMultiplayer();
+            view.printWrongNumber();
+        }
+        return false;
+    }
+
+    public Integer isUserInputANumber(){
+        Scanner input = new Scanner(System.in);
+
+        if (input.hasNextInt()){
+            input.close();
+            return input.nextInt();
+        }
+        else{
+            view.printNotANumber();
+            input.close();
+            isUserInputANumber();
+        }
+        return 0;
+    }
+
+
     public void createHintBar(){
-        ArrayList<String> temp = model.getUsedCharacters();
+        ArrayList<String> temp = new ArrayList<>();
         for (int i = 0; i < model.getCorrectAnswer().length(); i++){
             temp.add("_");
         }
@@ -58,6 +88,7 @@ public class Controller {
     public String getUserInput() {
         Scanner input = new Scanner(System.in);
         model.setUserGuess(input.nextLine());
+        input.close();
         return model.getUserGuess();
     }
 
