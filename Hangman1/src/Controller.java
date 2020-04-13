@@ -3,8 +3,13 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Controller {
@@ -35,13 +40,39 @@ public class Controller {
             //kalla på ny metod för check
         } else { //if the user did not guess correctly then the process repeats itself
             //uppdatera hangmanStage
+            //kalla på counter
             addUsedCharactersToArrayList();
             guessPhase();
         }
     }
 
     public String getWordFromFile(boolean difficultyIsHard){
+        try {
+            Scanner longWords = new Scanner(new FileInputStream("longwords.txt"), StandardCharsets.UTF_8);
+            Scanner shortWords = new Scanner(new FileInputStream("shortwords.txt"), StandardCharsets.UTF_8);
+            String guessWords = "";
+            if (difficultyIsHard){
+                return guessWords += longWords.nextLine();
+            }
+            else{ //if difficulty is not hard then it has to be easy - which means short words
+                return guessWords += shortWords.nextLine();
+            }
+        }
+        catch (FileNotFoundException E){
+            System.out.println("File not found.");
+            return getWordFromFile(false);
+        }
+    }
 
+    public ArrayList<String> splitStringsToArrayList(String wordsToBeSplitted){
+        ArrayList<String> splittedStrings = new ArrayList<>(Arrays.asList(wordsToBeSplitted.split(",")));
+        return splittedStrings;
+    }
+
+    public void getRandomWordFromArray(ArrayList<String> splittedWords){
+        Random randomNumber = new Random();
+        int index = randomNumber.nextInt(splittedWords.size());
+        model.setCorrectAnswer(splittedWords.get(index));
     }
 
     public boolean pickDifficulty(){
