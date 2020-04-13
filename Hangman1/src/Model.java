@@ -7,6 +7,7 @@ public class Model {
     private ArrayList<String> hintBar = new ArrayList<>();
     private ArrayList<String> usedCharacters = new ArrayList<>();
     private String userGuess = "";
+    private Integer guesscounter = 0;
     public final File INCORRECTGUESSSOUND = new File("incorrectguess.WAV");
     public final File CORRECTGUESSSOUND = new File("correctguess.WAV");
     public final File CORRECTANSWERSOUND = new File("correctanswer.WAV");
@@ -25,6 +26,13 @@ public class Model {
 
     public void setCorrectAnswer(String correctAnswer){
         this.correctAnswer = correctAnswer;
+    }
+
+    public Integer getGuessCounter(){
+        return guesscounter;
+    }
+    public void setGuesscounter(Integer guesscounter){
+        this.guesscounter = guesscounter;
     }
 
     public ArrayList<String> getHintBar() {

@@ -23,18 +23,20 @@ public class Controller {
         if (isMultiplayer()){
             view.printMultiplayer();
             createCorrectAnswerFromPlayer();
+
         }
         else{ //if false then the game is set to singleplayer
             view.printDifficultyInformation();
             getRandomWordFromArray(splitStringsToArrayList(getWordFromFile(pickDifficulty())));
         }
+        view.printGuessingPhase();
         createHintBar();
+        view.printHintBar(convertHintBarToString(model.getHintBar()));
         guessPhase();
     }
 
     public void guessPhase() {
         //kalla på hangmanStage
-        //kalla på hintBar
         if (doesUserInputMatchAnswer(isUserInputCorrect(getUserInput()))) {
             addUsedCharactersToArrayList();
             updateHintBar();
@@ -42,19 +44,49 @@ public class Controller {
             view.printHintBar(convertHintBarToString(model.getHintBar()));
             testIfFullAnswerIsCorrect();
             playSound(model.CORRECTGUESSSOUND);
-            guessPhase();
         } else { //if the user did not guess correctly then the process repeats itself
-            //uppdatera hangmanStage
-            //kalla på counter
+            displayHangmanStage();
+            increaseGuessCounter();
             addUsedCharactersToArrayList();
             view.printUsedCharacters(convertUsedCharactersToString(model.getUsedCharacters()));
             view.printHintBar(convertHintBarToString(model.getHintBar()));
             playSound(model.INCORRECTGUESSSOUND);
-            guessPhase();
         }
+        guessPhase();
     }
 
     public void resultPhase(){
+
+    }
+
+    public void displayHangmanStage(){
+        Integer amountOfGuesses = model.getGuessCounter();
+        if (amountOfGuesses == 0){
+            view.printHangmanStage1();
+        }
+        else if (amountOfGuesses == 1){
+            view.printHangmanStage2();
+        }
+        else if (amountOfGuesses == 2){
+            view.printHangmanStage3();
+
+        }
+        else if (amountOfGuesses == 3){
+            view.printHangmanStage4();
+
+        }
+        else if (amountOfGuesses == 4){
+            view.printHangmanStage5();
+
+        }
+        else if (amountOfGuesses == 5){
+            view.printHangmanStage6();
+
+        }
+        else if (amountOfGuesses == 6){
+            view.printHangmanStage7();
+
+        }
 
     }
 
@@ -89,10 +121,10 @@ public class Controller {
 
     public boolean pickDifficulty(){
         Integer userInput = isUserInputANumber();
-        if(userInput == 0){
+        if(userInput == 1){
             return true;
         }
-        else if(userInput == 1)
+        else if(userInput == 2)
             return false;
         else{ //if the number is not within the range - the process repeats itself
             view.printWrongNumber();
@@ -114,10 +146,10 @@ public class Controller {
 
     public boolean isMultiplayer(){
         Integer userInput = isUserInputANumber();
-        if (userInput == 0){
+        if (userInput == 1){
             return true;
         }
-        else if (userInput == 1){
+        else if (userInput == 2){
             return false;
         }
         else{
@@ -185,6 +217,10 @@ public class Controller {
         return userInput.toLowerCase();
     }
 
+    public void increaseGuessCounter(){
+        model.setGuesscounter(model.getGuessCounter() + 1);
+    }
+
     public void testIfFullAnswerIsCorrect(){
         if (convertHintBarToString(model.getHintBar()).equals(model.getCorrectAnswer())){ //if the user guessed correctly on all letters then the user wins
             playSound(model.CORRECTANSWERSOUND);
@@ -193,6 +229,13 @@ public class Controller {
     }
 
     public boolean doesUserInputMatchAnswer(String userGuess) {
+        if (userGuess.length() == 1){
+            if (hasUserGuessedOnThisLetter(userGuess)){
+                view.printUsedCharacterInformation();
+                guessPhase();
+            }
+
+        }
         if (userGuess.length() == model.getCorrectAnswer().length()) {
             if (userGuess.equals(model.getCorrectAnswer())) {
                 playSound(model.CORRECTANSWERSOUND);
@@ -214,6 +257,16 @@ public class Controller {
             return false; //this means that the user entered an incorrect answer
         } else {       //returns false if the user entered a value that is either greater than or less than the correct answer, but not if the value is 1 in length
             return false;
+        }
+        return false;
+    }
+
+    public boolean hasUserGuessedOnThisLetter(String userGuess){
+        String usedCharacters = convertUsedCharactersToString(model.getUsedCharacters());
+        for (int i = 0; i < usedCharacters.length(); i++){
+            if (userGuess.charAt(0) == usedCharacters.charAt(i)){
+                return true;
+            }
         }
         return false;
     }
