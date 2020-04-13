@@ -7,6 +7,10 @@ public class View {
         System.out.println("This is not a letter from the alphabet. Please try again.");
     }
 
+    public void printIntroduction(){
+        System.out.println("Welcome to hangman!\nThe game where you guess on a word.");
+    }
+
     public void printRules(){
         System.out.print("You can play either multiplayer or singleplayer, where " +
                 "multiplayer means that one person comes up with a word that the other player is supposed to guess.\n" +

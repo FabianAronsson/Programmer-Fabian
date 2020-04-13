@@ -12,6 +12,16 @@ public class Controller {
     static View view = new View();
 
     public void startGame() {
+        view.printIntroduction();
+        view.printRules();
+        view.printMultiplayerPrompt();
+        if (isMultiplayer()){
+            createCorrectAnswerFromPlayer();
+            createHintBar();
+        }
+        else{ //if false then the game is set to singleplayer
+
+        }
         guessPhase();
     }
 
@@ -30,11 +40,41 @@ public class Controller {
         }
     }
 
-    public boolean isMultiplayer(){
-        if (isUserInputANumber() == 0){
+    public String getWordFromFile(boolean difficultyIsHard){
+
+    }
+
+    public boolean pickDifficulty(){
+        Integer userInput = isUserInputANumber();
+        if(userInput == 0){
             return true;
         }
-        else if (isUserInputANumber() == 1){
+        else if(userInput == 1)
+            return false;
+        else{ //if the number is not within the range - the process repeats itself
+            view.printWrongNumber();
+            return pickDifficulty();
+        }
+    }
+
+    public void createCorrectAnswerFromPlayer(){
+        Scanner input = new Scanner(System.in);
+        String userInput = input.nextLine().toLowerCase();
+        for (int i = 0; i < userInput.length(); i++){
+            if (!Character.toString(userInput.charAt(i)).matches("^[A-Za-z]")){
+                view.printNotALetterInformation();
+                createCorrectAnswerFromPlayer();
+            }
+        }
+        model.setCorrectAnswer(userInput);
+    }
+
+    public boolean isMultiplayer(){
+        Integer userInput = isUserInputANumber();
+        if (userInput == 0){
+            return true;
+        }
+        else if (userInput == 1){
             return false;
         }
         else{
@@ -54,9 +94,8 @@ public class Controller {
         else{
             view.printNotANumber();
             input.close();
-            isUserInputANumber();
+            return isUserInputANumber();
         }
-        return 0;
     }
 
 
