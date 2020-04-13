@@ -21,27 +21,33 @@ public class Controller {
         view.printRules();
         view.printMultiplayerPrompt();
         if (isMultiplayer()){
+            view.printMultiplayer();
             createCorrectAnswerFromPlayer();
-            createHintBar();
         }
         else{ //if false then the game is set to singleplayer
-
+            view.printDifficultyInformation();
+            getRandomWordFromArray(splitStringsToArrayList(getWordFromFile(pickDifficulty())));
         }
+        createHintBar();
         guessPhase();
     }
 
     public void guessPhase() {
         //kalla på hangmanStage
         //kalla på hintBar
-        //skapa ArrayList med understreck i sig
         if (doesUserInputMatchAnswer(isUserInputCorrect(getUserInput()))) {
             addUsedCharactersToArrayList();
             updateHintBar();
+            view.printUsedCharacters(convertUsedCharactersToString(model.getUsedCharacters()));
+            view.printHintBar(convertHintBarToString(model.getHintBar()));
+            guessPhase();
             //kalla på ny metod för check
         } else { //if the user did not guess correctly then the process repeats itself
             //uppdatera hangmanStage
             //kalla på counter
             addUsedCharactersToArrayList();
+            view.printUsedCharacters(convertUsedCharactersToString(model.getUsedCharacters()));
+            view.printHintBar(convertHintBarToString(model.getHintBar()));
             guessPhase();
         }
     }
@@ -52,10 +58,10 @@ public class Controller {
             Scanner shortWords = new Scanner(new FileInputStream("shortwords.txt"), StandardCharsets.UTF_8);
             String guessWords = "";
             if (difficultyIsHard){
-                return guessWords += longWords.nextLine();
+                return guessWords = longWords.nextLine();
             }
             else{ //if difficulty is not hard then it has to be easy - which means short words
-                return guessWords += shortWords.nextLine();
+                return guessWords = shortWords.nextLine();
             }
         }
         catch (FileNotFoundException E){
@@ -119,7 +125,6 @@ public class Controller {
         Scanner input = new Scanner(System.in);
 
         if (input.hasNextInt()){
-            input.close();
             return input.nextInt();
         }
         else{
@@ -145,12 +150,15 @@ public class Controller {
                 temp.set(i, model.getUserGuess());
             }
         }
-        model.setUsedCharacters(temp);
+        model.setHintBar(temp);
     }
 
     public void addUsedCharactersToArrayList(){
        if (model.getUserGuess().length() == 1){
-          model.getUsedCharacters().add(model.getUserGuess());
+           ArrayList<String> temp = model.getUsedCharacters();
+           String tempArray = model.getUserGuess();
+           temp.add(tempArray);
+           model.setUsedCharacters(temp);
        }
     }
 
@@ -158,7 +166,6 @@ public class Controller {
     public String getUserInput() {
         Scanner input = new Scanner(System.in);
         model.setUserGuess(input.nextLine());
-        input.close();
         return model.getUserGuess();
     }
 
@@ -191,6 +198,21 @@ public class Controller {
             return false;
         }
         return false;
+    }
+
+    public String convertUsedCharactersToString(ArrayList<String> letters){
+        String usedCharacters = "";
+        for (int i = 0; i < model.getUsedCharacters().size(); i++){
+            usedCharacters += letters.get(i);
+        }
+        return usedCharacters;
+    }
+    public String convertHintBarToString(ArrayList<String> letters){
+        String hintbar = "";
+        for (int i = 0; i < model.getCorrectAnswer().length(); i++){
+            hintbar += letters.get(i);
+        }
+        return hintbar;
     }
 
     public void playSound(File soundFile) {

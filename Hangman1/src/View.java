@@ -11,6 +11,10 @@ public class View {
         System.out.println("Welcome to hangman!\nThe game where you guess on a word.");
     }
 
+    public void printMultiplayer(){
+        System.out.println("Multiplayer selected!\nPlayer two, enter your word now.");
+    }
+
     public void printRules(){
         System.out.print("You can play either multiplayer or singleplayer, where " +
                 "multiplayer means that one person comes up with a word that the other player is supposed to guess.\n" +
@@ -21,16 +25,21 @@ public class View {
     }
 
     public void printMultiplayerPrompt(){
-        System.out.println("Do you want to play the multiplayer version?\n (0) Yes\n(1) No");
+        System.out.println("Do you want to play the multiplayer version?\n(0) Yes\n(1) No");
     }
 
     public void printDifficultyInformation(){
         System.out.println("Do you want to play with long or short words?\n(0) Long words\n(1) Short words");
     }
 
-    public void printUsedCharacters(ArrayList<String> usedCharacters){
-        System.out.println(Arrays.toString(usedCharacters.toArray()));
+    public void printUsedCharacters(String usedCharacters){
+        System.out.println(usedCharacters);
     }
+
+    public void printHintBar(String hintBar){
+        System.out.println(hintBar);
+    }
+
     public void printNotANumber(){
         System.out.println("This is not a number. Try again.");
     }

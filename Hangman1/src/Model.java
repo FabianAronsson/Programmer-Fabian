@@ -3,10 +3,10 @@ import java.util.ArrayList;
 
 public class Model {
 
-    private String correctAnswer;
-    private ArrayList<String> hintBar;
-    private ArrayList<String> usedCharacters;
-    private String userGuess;
+    private String correctAnswer = "";
+    private ArrayList<String> hintBar = new ArrayList<>();
+    private ArrayList<String> usedCharacters = new ArrayList<>();
+    private String userGuess = "";
     public final File INCORRECTGUESSSOUND = new File("incorrectguess.WAV");
     public final File CORRECTGUESSSOUND = new File("correctguess.WAV");
     public final File CORRECTANSWERSOUND = new File("correctanswer.WAV");
