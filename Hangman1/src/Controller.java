@@ -40,16 +40,22 @@ public class Controller {
             updateHintBar();
             view.printUsedCharacters(convertUsedCharactersToString(model.getUsedCharacters()));
             view.printHintBar(convertHintBarToString(model.getHintBar()));
+            testIfFullAnswerIsCorrect();
+            playSound(model.CORRECTGUESSSOUND);
             guessPhase();
-            //kalla på ny metod för check
         } else { //if the user did not guess correctly then the process repeats itself
             //uppdatera hangmanStage
             //kalla på counter
             addUsedCharactersToArrayList();
             view.printUsedCharacters(convertUsedCharactersToString(model.getUsedCharacters()));
             view.printHintBar(convertHintBarToString(model.getHintBar()));
+            playSound(model.INCORRECTGUESSSOUND);
             guessPhase();
         }
+    }
+
+    public void resultPhase(){
+
     }
 
     public String getWordFromFile(boolean difficultyIsHard){
@@ -129,7 +135,6 @@ public class Controller {
         }
         else{
             view.printNotANumber();
-            input.close();
             return isUserInputANumber();
         }
     }
@@ -180,20 +185,33 @@ public class Controller {
         return userInput.toLowerCase();
     }
 
-    public boolean doesUserInputMatchAnswer(String userGuess) {
+    public void testIfFullAnswerIsCorrect(){
+        if (convertHintBarToString(model.getHintBar()).equals(model.getCorrectAnswer())){ //if the user guessed correctly on all letters then the user wins
+            playSound(model.CORRECTANSWERSOUND);
+            //kalla på resultat
+        }
+    }
 
+    public boolean doesUserInputMatchAnswer(String userGuess) {
         if (userGuess.length() == model.getCorrectAnswer().length()) {
             if (userGuess.equals(model.getCorrectAnswer())) {
+                playSound(model.CORRECTANSWERSOUND);
                 //kalla på resultatmetoden
 
             }
-        } else if (userGuess.length() == 1) {
+        }
+        else if (userGuess.length() == 1) {
             for (int i = 0; i < model.getCorrectAnswer().length(); i++) {
                 if (userGuess.charAt(0) == model.getCorrectAnswer().charAt(i)) {
+                    if (convertHintBarToString(model.getHintBar()).equals(model.getCorrectAnswer())){ //if the user guessed correctly on all letters then the user wins
+                    playSound(model.CORRECTANSWERSOUND);
+                    //kalla på resultat
+                }
                     return true;
                 }
             }
-            return false; //this means that the user entered an incorrect answer.
+
+            return false; //this means that the user entered an incorrect answer
         } else {       //returns false if the user entered a value that is either greater than or less than the correct answer, but not if the value is 1 in length
             return false;
         }
