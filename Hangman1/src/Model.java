@@ -8,6 +8,8 @@ public class Model {
     private ArrayList<String> usedCharacters = new ArrayList<>();
     private String userGuess = "";
     private Integer guesscounter = 0;
+    private boolean hasPlayerWon = false;
+    private boolean hasPlayerLost = false;
     public final File INCORRECTGUESSSOUND = new File("incorrectguess.WAV");
     public final File CORRECTGUESSSOUND = new File("correctguess.WAV");
     public final File CORRECTANSWERSOUND = new File("correctanswer.WAV");
@@ -17,21 +19,23 @@ public class Model {
         return correctAnswer;
     }
 
-    public String getUserGuess() {
-        return userGuess;
-    }
-    public void setUserGuess(String userGuess){
-        this.userGuess = userGuess;
-    }
-
-    public void setCorrectAnswer(String correctAnswer){
+    public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
 
-    public Integer getGuessCounter(){
+    public String getUserGuess() {
+        return userGuess;
+    }
+
+    public void setUserGuess(String userGuess) {
+        this.userGuess = userGuess;
+    }
+
+    public Integer getGuessCounter() {
         return guesscounter;
     }
-    public void setGuesscounter(Integer guesscounter){
+
+    public void setGuesscounter(Integer guesscounter) {
         this.guesscounter = guesscounter;
     }
 
@@ -39,7 +43,7 @@ public class Model {
         return hintBar;
     }
 
-    public void setHintBar(ArrayList<String> hintBar){
+    public void setHintBar(ArrayList<String> hintBar) {
         this.hintBar = hintBar;
     }
 
@@ -47,7 +51,23 @@ public class Model {
         return usedCharacters;
     }
 
-    public void setUsedCharacters(ArrayList<String> usedCharacters){
+    public void setUsedCharacters(ArrayList<String> usedCharacters) {
         this.usedCharacters = usedCharacters;
+    }
+
+    public boolean getHasPlayerWon() {
+        return hasPlayerWon;
+    }
+
+    public void setHasPlayerWon(boolean hasPlayerWon) {
+        this.hasPlayerWon = hasPlayerWon;
+    }
+
+    public boolean getHasPlayerLost() {
+        return hasPlayerLost;
+    }
+
+    public void setHasPlayerLost(boolean hasPlayerLost) {
+        this.hasPlayerLost = hasPlayerLost;
     }
 }
