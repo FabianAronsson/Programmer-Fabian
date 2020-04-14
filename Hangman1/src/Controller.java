@@ -64,7 +64,7 @@ public class Controller {
             view.printHintBar(convertHintBarToString(model.getHintBar()));
             testIfFullAnswerIsCorrect();
             playSound(model.CORRECTGUESSSOUND);
-        } else { //if the user did not guess correctly then the process repeats itself
+        } else { //if the user did not make a correct guess then the process repeats itself
             clearConsole();
             displayHangmanStage();
             increaseGuessCounter();
@@ -87,6 +87,7 @@ public class Controller {
      */
     public void resultPhase() {
         if (model.getHasPlayerWon()) {
+            view.printCorrectAnswer(model.getCorrectAnswer());
             view.printCongratulationMessage();
             restartGame();
         } else if (model.getHasPlayerLost()) {
@@ -353,9 +354,11 @@ public class Controller {
     }
 
     /**
-     * This method is specifically used to get userInput, but more importantly user guesses. It is used together w
+     * This method is specifically used to get userInput, but more importantly user guesses. It is used together with
+     * other methods that make use of the user guess, such as, if the guess matches any letter in the correct answer.
+     * This method updates the userGuess in model and afterwards returns the guess so it can be used in the next method.
      *
-     * @return
+     * @return          Returns the user guess that is going to be validated.
      */
     public String getUserInput() {
         Scanner input = new Scanner(System.in);
@@ -363,6 +366,14 @@ public class Controller {
         return model.getUserGuess();
     }
 
+    /**
+     * This method loops through the userInput (which is the guess), and checks if the String does not contain anything
+     * that is not from the alphabet. It does this by using regex and a for-loop. If a number was fun the user is told
+     * and the process repeats itself. If only letters were entered, the method returns the letter(s).
+     *
+     * @param userInput     Takes in the user input that is going to be validated.
+     * @return              Returns the validated user input.
+     */
     public String isUserInputCorrect(String userInput) {
 
         for (int i = 0; i < userInput.length(); i++) {
@@ -374,10 +385,21 @@ public class Controller {
         return userInput.toLowerCase();
     }
 
+    /**
+     * This method increases the guess counter every time the user makes an incorrect guess. The counter is used for
+     * displaying the correct stage and checking if the player has lost.
+     */
     public void increaseGuessCounter() {
         model.setGuesscounter(model.getGuessCounter() + 1);
     }
 
+    /**
+     * This method checks if the hintbar is equal to the correct answer. Why would the game need this? Well, without it
+     * you cannot win the game if you only enter letters. This method checks every time the user entered a letter if the
+     * hintbar is equal to the correct answer. Because if it is, it means that the user has guessed correctly on all of
+     * the letters. If the user guesses correctly, a sound is played and hasPlayerWon is set to true. Afterwards the
+     * resultPhase is called upon and the player wins.
+     */
     public void testIfFullAnswerIsCorrect() {
         if (convertHintBarToString(model.getHintBar()).equals(model.getCorrectAnswer())) { //if the user guessed correctly on all letters then the user wins
             playSound(model.CORRECTANSWERSOUND);
@@ -386,6 +408,22 @@ public class Controller {
         }
     }
 
+    /**
+     * This is the method that has the responsibility to check if the user input match the correct answer. This could be
+     * either the full word or a letter of the word. It also checks if the player has already made a guess on that letter.
+     * The first if-statement checks if the user guess has already been guessed on. Though it only checks letters, not words.
+     * The second if-statement checks if the user entered a word that has equal length as the correct answer. If it does
+     * then it checks if those two are equal. If they are - the player win. The third if-statement loops through the
+     * correct answer and checks if the user guess is anywhere in the correct answer. If it is, another if-statement checks
+     * if the hintbar is equal to the correct answer. If it is - the player win. If it is not then the game returns true to
+     * indicate that the letter does in fact exist inside the correct answer. If however it does not - the game returns false
+     * as the guess does not exist inside the correct answer. The last else statement returns false as it is used if the
+     * player enters words equal to the length of 2 but > correctAnswer > which nets the player an incorrect guess. Since
+     * you cannot guess on words that is greater nor less than the correct answer.
+     *
+     * @param userGuess     This is the user guess that is used.
+     * @return              Returns a boolean that is used to determine whether or not the user did a correct guess or not.
+     */
     public boolean doesUserInputMatchAnswer(String userGuess) {
         if (userGuess.length() == 1) {
             if (hasUserGuessedOnThisLetter(userGuess)) {
@@ -418,16 +456,33 @@ public class Controller {
         return false;
     }
 
+    /**
+     *  This method checks if the user has already guessed on previous characters. It works by looping through a String
+     *  and checks each position of the usedLetters String to see if the userGuess exists inside. If it does - the game
+     *  returns true. If it does not - the game returns false.
+     *
+     * @param userGuess     This is the user input which is used in the method.
+     * @return              Returns a boolean depending on if the letter does exist inside usedLetters.
+     */
     public boolean hasUserGuessedOnThisLetter(String userGuess) {
         String usedLetters = convertUsedLettersToString(model.getUsedLetters());
         for (int i = 0; i < usedLetters.length(); i++) {
             if (userGuess.charAt(0) == usedLetters.charAt(i)) {
-                return true;
+                return true; //The word has been used
             }
         }
-        return false;
+        return false; //The word has not been used
     }
 
+    /**
+     * Converts the used letter ArrayList to a String. This was necessary in order to better utilize certain functions
+     * that Strings have, but not ArrayLists and vice versa. For example: printing an ArrayList is harder than a String
+     * in this project, but I use both in this project. Just to different things. It works by adding every letter inside
+     * usedLetter to an empty String using a for-loop. It later returns the finished String.
+     *
+     * @param letters       The ArrayList that is going to be converted.
+     * @return              Returns the ArrayList as a String.
+     */
     public String convertUsedLettersToString(ArrayList<String> letters) {
         String usedLetters = "";
         for (int i = 0; i < model.getUsedLetters().size(); i++) {
@@ -436,6 +491,14 @@ public class Controller {
         return usedLetters;
     }
 
+    /**
+     * This method works in the same fashion as the above one, but with a few changes. For example, it loops differently
+     * than the previous one. If it did not, I would have been able to use the previous one again, but that is not
+     * possible.
+     *
+     * @param letters       The ArrayList that is going to be converted to a String.
+     * @return              Returns the converted ArrayList as a String.
+     */
     public String convertHintBarToString(ArrayList<String> letters) {
         String hintbar = "";
         for (int i = 0; i < model.getCorrectAnswer().length(); i++) {
@@ -444,6 +507,16 @@ public class Controller {
         return hintbar;
     }
 
+    /**
+     * This method plays all the sound files in my game. It work by using Clip and Audiosystem, but mainly clip. It
+     * begins with creating clip and the opening the actual clip so that a sound file can be played. This is necessary as
+     * otherwise would clip not know where to play the sound file from, and without AudioInputStream there would be no way
+     * to locate the file and provide it to clip. Clip.start plays the actual sound file. Thread.sleep is also included to
+     * make sure that the sound file gets fully played so that the game does not progress before the sound file was fully
+     * played. There is also a try catch here to make sure that the game does not crash when a sound file could not be found.
+     *
+     * @param soundFile         This is the sound effect that is going to be played.
+     */
     public void playSound(File soundFile) {
         try {
             Clip clip = AudioSystem.getClip();
