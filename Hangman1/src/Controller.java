@@ -45,11 +45,11 @@ public class Controller {
             clearConsole();
             displayHangmanStage();
             increaseGuessCounter();
+            hasPlayerLost();
             addUsedCharactersToArrayList();
             view.printUsedCharacters(convertUsedCharactersToString(model.getUsedCharacters()));
             view.printHintBar(convertHintBarToString(model.getHintBar()));
             playSound(model.INCORRECTGUESSSOUND);
-            hasPlayerLost();
         }
         resultPhase();
         guessPhase();
@@ -91,6 +91,7 @@ public class Controller {
     public void hasPlayerLost() {
         if (model.getGuessCounter() == 7) {
             model.setHasPlayerLost(true);
+            playSound(model.LOSESOUND);
             resultPhase();
         }
     }
@@ -143,8 +144,7 @@ public class Controller {
     }
 
     public ArrayList<String> splitStringsToArrayList(String wordsToBeSplitted) {
-        ArrayList<String> splittedStrings = new ArrayList<>(Arrays.asList(wordsToBeSplitted.split(",")));
-        return splittedStrings;
+        return new ArrayList<>(Arrays.asList(wordsToBeSplitted.split(",")));
     }
 
     public void getRandomWordFromArray(ArrayList<String> splittedWords) {
@@ -175,6 +175,7 @@ public class Controller {
             }
         }
         model.setCorrectAnswer(userInput);
+        clearConsole();
     }
 
     public boolean isMultiplayer() {

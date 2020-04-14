@@ -13,6 +13,7 @@ public class Model {
     public final File INCORRECTGUESSSOUND = new File("incorrectguess.WAV");
     public final File CORRECTGUESSSOUND = new File("correctguess.WAV");
     public final File CORRECTANSWERSOUND = new File("correctanswer.WAV");
+    public final File LOSESOUND = new File("losesound.WAV");
 
 
     /**
