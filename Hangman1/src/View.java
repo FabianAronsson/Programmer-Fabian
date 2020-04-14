@@ -66,10 +66,10 @@ public class View {
     /**
      * This method prints the letters that the user have tried.
      *
-     * @param usedCharacters    Takes in a String which contains all of the used letters.
+     * @param usedLetters    Takes in a String which contains all of the used letters.
      */
-    public void printUsedCharacters(String usedCharacters) {
-        System.out.println(usedCharacters);
+    public void printUsedLetters(String usedLetters) {
+        System.out.println(usedLetters);
     }
 
     /**
@@ -85,7 +85,7 @@ public class View {
      * A method that prints error information when the user enters something that is not a number.
      */
     public void printNotANumber() {
-        System.out.println("That is not a number or it might not be an alternative. Try again.");
+        System.out.println("\nThat is not a number or it might not be an alternative. Try again.\n");
     }
 
     /**
@@ -93,6 +93,15 @@ public class View {
      */
     public void printNewLine() {
         System.out.println();
+    }
+
+    /**
+     * This method prints the correct answer. It is used when you lose, so that you know what word just guessed on.
+     *
+     * @param correctAnswer     Takes in the correct answer to display.
+     */
+    public void printCorrectAnswer(String correctAnswer){
+        System.out.println("\nThe correct answer was: " + correctAnswer);
     }
 
     /**

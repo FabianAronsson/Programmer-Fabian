@@ -5,7 +5,7 @@ public class Model {
 
     private String correctAnswer = "";
     private ArrayList<String> hintBar = new ArrayList<>();
-    private ArrayList<String> usedCharacters = new ArrayList<>();
+    private ArrayList<String> usedLetters = new ArrayList<>();
     private String userGuess = "";
     private Integer guesscounter = 0;
     private boolean hasPlayerWon = false;
@@ -89,21 +89,21 @@ public class Model {
     }
 
     /**
-     * A getter for usedCharacters.
+     * A getter for usedLetters.
      *
-     * @return Returns the value usedCharacters from the model.
+     * @return Returns the value usedLetters from the model.
      */
-    public ArrayList<String> getUsedCharacters() {
-        return usedCharacters;
+    public ArrayList<String> getUsedLetters() {
+        return usedLetters;
     }
 
     /**
-     * A setter for usedCharacters.
+     * A setter for usedLetters.
      *
-     * @param usedCharacters Takes in an ArrayList<String> from the controller.
+     * @param usedLetters Takes in an ArrayList<String> from the controller.
      */
-    public void setUsedCharacters(ArrayList<String> usedCharacters) {
-        this.usedCharacters = usedCharacters;
+    public void setUsedLetters(ArrayList<String> usedLetters) {
+        this.usedLetters = usedLetters;
     }
 
     /**
