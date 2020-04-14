@@ -56,6 +56,14 @@ public class View {
         System.out.println();
     }
 
+    public void printUnableToFindTextFile(){
+        System.out.println("File not found.");
+    }
+
+    public void printSoundEffectError(){
+        System.out.println("Either the sound file could not be found or an unsupported audio type was used.");
+    }
+
     public void printWrongNumber() {
         System.out.println("Please enter either 0 or 1.");
     }
@@ -67,6 +75,7 @@ public class View {
     public void printLossMessage() {
         System.out.println("\nToo bad, you lost.");
     }
+
 
     public void printRestartInformation() {
         System.out.println("Do you want to play again?\n(1) Yes\n(2) No");

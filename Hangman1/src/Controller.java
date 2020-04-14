@@ -137,7 +137,7 @@ public class Controller {
                 return guessWords = shortWords.nextLine();
             }
         } catch (FileNotFoundException E) {
-            System.out.println("File not found.");
+            view.printUnableToFindTextFile();
             return getWordFromFile(false);
         }
     }
@@ -324,8 +324,7 @@ public class Controller {
             clip.start();
             Thread.sleep(clip.getMicrosecondLength() / 1000);
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException | InterruptedException E) {
-            System.out.println("Either the sound file could not be found or an unsupported audio type was used.");
+            view.printSoundEffectError();
         }
     }
-
 }
