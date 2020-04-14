@@ -64,51 +64,84 @@ public class View {
     }
 
     /**
-     * Th
+     * This method prints the letters that the user have tried.
      *
-     * @param usedCharacters
+     * @param usedCharacters    Takes in a String which contains all of the used letters.
      */
     public void printUsedCharacters(String usedCharacters) {
         System.out.println(usedCharacters);
     }
 
+    /**
+     * This method prints the hintbar so that the player can get hints.
+     *
+     * @param hintBar           Takes in a String which contains the actual hintbar.
+     */
     public void printHintBar(String hintBar) {
         System.out.println(hintBar);
     }
 
+    /**
+     * A method that prints error information when the user enters something that is not a number.
+     */
     public void printNotANumber() {
         System.out.println("That is not a number or it might not be an alternative. Try again.");
     }
 
+    /**
+     * This method prints a new line. As simple as that ;). Used in tandem with a for loop to clear the console.
+     */
     public void printNewLine() {
         System.out.println();
     }
 
+    /**
+     * The method prints an error message telling the user that the text file containing the words was unable to be found.
+     */
     public void printUnableToFindTextFile(){
         System.out.println("File not found.");
     }
 
+    /**
+     * This method prints a message to the user telling he/she that the sound file could not be played.
+     */
     public void printSoundEffectError(){
         System.out.println("Either the sound file could not be found or an unsupported audio type was used.");
     }
 
+    /**
+     * Prints an error message that tells the user to either input either 1 or 2.
+     */
     public void printWrongNumber() {
-        System.out.println("Please enter either 0 or 1.");
+        System.out.println("Please enter either 1 or 2.");
     }
 
+    /**
+     * Prints a congratulation message.
+     */
     public void printCongratulationMessage() {
         System.out.println("\nCongratulations, you won!");
     }
 
+    /**
+     * Prints a message telling the user he/she has lost.
+     */
     public void printLossMessage() {
         System.out.println("\nToo bad, you lost.");
     }
 
-
+    /**
+     * Prints a restart prompt, asking whether the user want to play again or not.
+     */
     public void printRestartInformation() {
         System.out.println("Do you want to play again?\n(1) Yes\n(2) No");
     }
 
+    /**
+     * This javadoc will apply and cover all of the hangmanStage methods as they are practically identical.
+     * Each method prints part of the graphics. The controller calls on the correct method based on where
+     * the user is in-game.
+     */
     public void printHangmanStage1() {
         System.out.println("  +---+\n" +
                 "  |   |\n" +

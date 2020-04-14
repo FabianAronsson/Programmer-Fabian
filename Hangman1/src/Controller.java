@@ -16,6 +16,14 @@ public class Controller {
     static Model model = new Model();
     static View view = new View();
 
+    /**
+     * This method is the general starting method. It prints all of the necessary information to the user.
+     * This include introduction message, rules and more. It calls on a method called isMultiplayer, and if that method
+     * returns true - the game gets set to multiplayer mode. This means that the two player are allowed. One of the players
+     * enters a word and the other is guessing on that word. In singleplayer the game picks a random word based on what
+     * difficulty the user choosed previously. A hintbar is created so the user can get hints during gameplay. Afterwards
+     * the game progresses into guessPhase where the guessing takes part.
+     */
     public void startGame() {
         view.printIntroduction();
         view.printRules();
@@ -33,6 +41,9 @@ public class Controller {
         guessPhase();
     }
 
+    /**
+     * The guessPhase method is the method where the user makes guesses on a specific word. 
+     */
     public void guessPhase() {
         if (doesUserInputMatchAnswer(isUserInputCorrect(getUserInput()))) {
             addUsedCharactersToArrayList();
