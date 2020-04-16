@@ -10,6 +10,7 @@ public class Model {
     private Integer guesscounter = 0;
     private boolean hasPlayerWon = false;
     private boolean hasPlayerLost = false;
+    private boolean isMultiplayer = false;
     public final File INCORRECTGUESSSOUND = new File("incorrectguess.WAV");
     public final File CORRECTGUESSSOUND = new File("correctguess.WAV");
     public final File CORRECTANSWERSOUND = new File("correctanswer.WAV");
@@ -32,6 +33,24 @@ public class Model {
      */
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
+    }
+
+    /**
+     * A getter for isMultiplayer.
+     *
+     * @return  Returns the value isMultiplayer has.
+     */
+    public boolean getIsMultiplayer(){
+        return isMultiplayer;
+    }
+
+    /**
+     * A setter for isMultiplayer.
+     *
+     * @param isMultiplayer     Takes in a boolean and sets the variable isMultiplayer to that value.
+     */
+    public void setIsMultiplayer(boolean isMultiplayer){
+        this.isMultiplayer = isMultiplayer;
     }
 
     /**

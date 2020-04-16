@@ -264,12 +264,10 @@ public class Controller {
      * Of course the other player can simply scroll up, but without clearConsole, the other player would immediately
      * see what the correct answer was.
      *
-     * Originally regex was included, but since this is multiplayer I wanted to spice things up, because you cannot enter
-     * numbers nor special characters when you are actually guessing. This might be fun for those who want to joke with
-     * the other player. This makes it so if you want to guess seriously you would actually enter a real word and not a
-     * number or some other non working characters, but at the same time preserving the fun part in joking with your friend.
-     * It is (and was) by no means hard to implement regex to limit what kind of characters that could be entered, but
-     * what is the fun in limiting players?
+     * Originally regex was included, but since this is multiplayer I wanted to spice things up, because custom words a
+     * whole different experience than compared to the words the game has to choose between. This might be fun for those
+     * who want to joke with the other player. It is (and was) by no means hard to implement regex to limit what kind of
+     * characters that could be entered, but what is the fun in limiting players?
      */
     public void createCorrectAnswerFromPlayer() {
         Scanner input = new Scanner(System.in);
@@ -288,6 +286,7 @@ public class Controller {
     public boolean isMultiplayer() {
         Integer userInput = isUserInputANumber();
         if (userInput == 1) {
+            model.setIsMultiplayer(true);
             return true; //multiplayer
         } else if (userInput == 2) {
             return false; //singleplayer
@@ -376,13 +375,18 @@ public class Controller {
      */
     public String isUserInputCorrect(String userInput) {
 
-        for (int i = 0; i < userInput.length(); i++) {
-            if (!Character.toString(userInput.charAt(i)).matches("^[A-Za-z]")) {
-                view.printNotALetterInformation();
-                guessPhase();
+        if (!model.getIsMultiplayer()){
+            for (int i = 0; i < userInput.length(); i++) {
+                if (!Character.toString(userInput.charAt(i)).matches("^[A-Za-z]")) {
+                    view.printNotALetterInformation();
+                    guessPhase();
+                }
             }
+            return userInput.toLowerCase();
         }
-        return userInput.toLowerCase();
+        else{
+            return userInput;
+        }
     }
 
     /**
